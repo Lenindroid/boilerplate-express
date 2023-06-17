@@ -1,19 +1,20 @@
 let express = require('express');
 let app = express();
-console.log('Hello World');
-/*app.get("/", (req, res)=>{
+/*console.log('Hello World'); -Interactua con la consola
+app.get("/", (req, res)=>{
     res.send("Hello Express");
-}); RETO 1*/
-/*let absolutePath = __dirname + '/views/index.html'
+}); -- Enviaste algo al cliente*/
+let absolutePath = __dirname + '/views/index.html'
 
 app.get("/", (req, res)=>{
     res.sendFile(absolutePath);
-}); RETO 2*/
+}); //Le diste un html con el método http get que obtuvo la ruta raíz y respondió con el index.
 
-let absolutePath = __dirname + '/public';
-app.use(express.static(absolutePath));
+app.use('/public', express.static(__dirname + '/public'));//Montaste un middleware con .use, el middleware obtiene cosas estáticas.
 
-
+app.get('/json', (req, res)=>{
+    res.json({"message": "Hello json"});//Método de res que envía un json.
+}); //Enviaste información en un json.
 
 
 
