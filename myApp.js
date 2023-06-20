@@ -17,11 +17,22 @@ app.use('/public', express.static(__dirname + '/public'));//Montaste un middlewa
 app.get('/json', (req, res)=>{
     process.env.MESSAGE_STYLE
     if (process.env.MESSAGE_STYLE == 'uppercase') {
-        res.json({"message": "HELLO JSON"});
+        res.json({"message": "Hello json".toUpperCase()});
     } else {
         res.json({"message": "Hello json"});//Método de res que envía un json.
     }
 }); 
+
+app.get('/now', (req, res, next)=>{
+    req.time = new Date().toString();//Segundo parámetro: middleware. Añade info al handler.
+    next();//Ejecutuar el handler.
+}, (req, res)=>{
+    res.json({"time": req.time});//El handler.
+});
+
+app.get('/:word/echo', (req, res)=>{
+    res.json({"echo": req.params.word.toString()});
+});
 
 
 
