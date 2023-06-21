@@ -36,15 +36,23 @@ app.get('/:word/echo', (req, res)=>{
 }); //Enviamos una petición de un input.
 
 app.get('/name', function(req, res){
-    let first = req.query.first;
-    let last = req.query.last;
-    let jsonObj = {name: first + " " + last};
-    res.send(jsonObj);
+    
 });//Esto muy probablemente está mal.
 
 app.use(bodyParser.urlencoded({extended: false})); ////Extended indica el tipo de parse. Al usar extended=false los valores son cadenas o arrays.
 //Permite trabajar con post requests.
 
-
+app.route('/name').get((req, res)=>{
+    let first = req.query.first;//Accede a los datos de un query input
+    let last = req.query.last;
+    let jsonObj = {name: first + " " + last};
+    res.send(jsonObj);
+}).post((req, res)=>{
+    let first = req.body.first;//Accede a los datos de un post
+    let last = req.body.last;
+    let todo = first + " " + last;
+    let jsonObj = {name: todo};
+    res.send(jsonObj);
+});//Route te permite usar varios métodos http con la misma ruta
 module.exports = app;
 
