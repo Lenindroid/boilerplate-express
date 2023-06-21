@@ -1,3 +1,4 @@
+let bodyParser = require('body-parser');
 require('dotenv').config();
 let express = require('express');
 let app = express();
@@ -32,22 +33,17 @@ app.get('/now', (req, res, next)=>{
 
 app.get('/:word/echo', (req, res)=>{
     res.json({"echo": req.params.word.toString()});
-});
+}); //Enviamos una petición de un input.
 
+app.get('/name', function(req, res){
+    let first = req.query.first;
+    let last = req.query.last;
+    let jsonObj = {name: first + " " + last};
+    res.send(jsonObj);
+});//Esto muy probablemente está mal.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.use(bodyParser.urlencoded({extended: false})); ////Extended indica el tipo de parse. Al usar extended=false los valores son cadenas o arrays.
+//Permite trabajar con post requests.
 
 
 module.exports = app;
